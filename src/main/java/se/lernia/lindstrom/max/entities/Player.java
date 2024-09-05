@@ -104,7 +104,7 @@ public class Player implements Movable {
         health -= amount;
     }
 
-    public void addHealth(int amount) {
+    private void addHealth(int amount) {
         health += amount;
         System.out.println("You gained " + amount + " health");
     }
