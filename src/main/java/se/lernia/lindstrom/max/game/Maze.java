@@ -24,10 +24,6 @@ public class Maze {
         return new ArrayList<>(items);
     }
 
-    public ArrayList<Monster> getMonsters() {
-        return new ArrayList<>(monsters);
-    }
-
     public int[][] getMaze() {
         return maze;
     }
