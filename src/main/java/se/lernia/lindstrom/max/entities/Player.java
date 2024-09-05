@@ -30,15 +30,6 @@ public class Player implements Movable {
         position = newPosition;
     }
 
-    public Monster checkForMonster(Position position, ArrayList<Monster> monsters) {
-        for (Monster monster : monsters) {
-            if (monster.getPosition().equals(position)) {
-                return monster;
-            }
-        }
-        return null;
-    }
-
     public Position getPosition() {
         return position;
     }
