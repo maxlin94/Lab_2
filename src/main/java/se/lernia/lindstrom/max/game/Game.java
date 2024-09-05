@@ -3,7 +3,6 @@ package se.lernia.lindstrom.max.game;
 import se.lernia.lindstrom.max.entities.Monster;
 import se.lernia.lindstrom.max.entities.Player;
 import se.lernia.lindstrom.max.entities.Position;
-import se.lernia.lindstrom.max.items.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +59,7 @@ public class Game {
                 player.move(newPos);
             }
             updateMap(oldPos, newPos);
-            checkForItem();
+            maze.checkForItem(newPos, player);
         }
     }
 
@@ -72,16 +71,6 @@ public class Game {
     private static void printMap() {
         for (int[] row : map) {
             System.out.println(Arrays.toString(row));
-        }
-    }
-
-    private static void checkForItem() {
-        ArrayList<Item> items = maze.getItems();
-        for (Item item : items) {
-            if (item.getPosition().equals(player.getPosition())) {
-                player.addItem(item);
-                maze.removeItem(item);
-            }
         }
     }
 

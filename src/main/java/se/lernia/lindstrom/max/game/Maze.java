@@ -1,10 +1,12 @@
 package se.lernia.lindstrom.max.game;
 
 import se.lernia.lindstrom.max.entities.Monster;
+import se.lernia.lindstrom.max.entities.Player;
 import se.lernia.lindstrom.max.entities.Position;
 import se.lernia.lindstrom.max.items.Item;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public class Maze {
@@ -32,10 +34,6 @@ public class Maze {
         items.add(item);
     }
 
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
-
     public void addMonster(Monster monster) {
         monsters.add(monster);
     }
@@ -44,11 +42,11 @@ public class Maze {
         monsters.remove(monster);
     }
 
-    public boolean isValidPosition(Position pos) {
+    private boolean isValidPosition(Position pos) {
         return pos.x() >= 0 && pos.x() < maze.length && pos.y() >= 0 && pos.y() < maze[0].length;
     }
 
-    public boolean canMoveTo(Position pos) {
+    private boolean canMoveTo(Position pos) {
         return maze[pos.x()][pos.y()] != 0;
     }
 
@@ -59,6 +57,17 @@ public class Maze {
                 .orElse(null);
     }
 
+    public void checkForItem(Position pos, Player player) {
+        Iterator<Item> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            Item item = iterator.next();
+            if (item.getPosition().equals(pos)) {
+                player.addItem(item);
+                iterator.remove();
+            }
+        }
+    }
+
     public ArrayList<Position> getValidMoves(Position currentPos) {
         return getNeighbours(currentPos)
                 .stream()
@@ -66,7 +75,7 @@ public class Maze {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Position> getNeighbours(Position pos) {
+    private ArrayList<Position> getNeighbours(Position pos) {
         ArrayList<Position> neighbours = new ArrayList<>();
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
