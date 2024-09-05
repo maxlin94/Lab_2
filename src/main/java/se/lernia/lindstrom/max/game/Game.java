@@ -27,8 +27,8 @@ public class Game {
             ArrayList<Position> moves = maze.getValidMoves(player.getPosition());
             GameUI.displayAvailableMoves(moves, maze);
             int selection = GameUI.getMenuSelection(moves);
-            handleSelection(selection, moves);
-            updateMaze();
+            handleMenuSelection(selection, moves);
+            maze.updateMaze();
         }
     }
 
@@ -44,7 +44,7 @@ public class Game {
         return new Player(name, 100, Position.of(0, 0), 8, 10);
     }
 
-    private static void handleSelection(int selection, ArrayList<Position> moves) {
+    private static void handleMenuSelection(int selection, ArrayList<Position> moves) {
         if (selection == moves.size() + 1) {
             GameUI.printInventory();
         } else if (selection == moves.size() + 2) {
@@ -112,15 +112,6 @@ public class Game {
             System.out.println("You have defeated the monster!");
             player.addItem(monster.getLoot());
             maze.removeMonster(monster);
-        }
-    }
-
-    private static void updateMaze() {
-        if (maze.getMonsters().size() < 4) {
-            Randomize.addRandomMonsters(maze, 1);
-        }
-        if (maze.getItems().size() < 4) {
-            Randomize.addRandomLoot(maze, 1);
         }
     }
 }

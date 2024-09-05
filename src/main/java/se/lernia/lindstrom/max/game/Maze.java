@@ -95,4 +95,13 @@ public class Maze {
             return "East";
         }
     }
+
+    public void updateMaze() {
+        if (monsters.size() < 4) {
+            Randomize.addRandomMonsters(this, 1);
+        }
+        if (items.size() < 4) {
+            Randomize.addRandomLoot(this, 1);
+        }
+    }
 }
