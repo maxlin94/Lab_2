@@ -53,12 +53,12 @@ public class Maze {
                 .orElse(null);
     }
 
-    public void checkForItem(Position pos, Player player) {
+    public void checkForItem(Player player) {
         Iterator<Item> iterator = items.iterator();
         while (iterator.hasNext()) {
             Item item = iterator.next();
-            if (item.getPosition().equals(pos)) {
-                player.addItem(item);
+            if (item.getPosition().equals(player.getPosition())) {
+                player.addItem(item, false);
                 iterator.remove();
             }
         }

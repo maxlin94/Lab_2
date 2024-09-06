@@ -59,7 +59,7 @@ public class Game {
                 player.move(newPos);
             }
             updateMap(oldPos, newPos);
-            maze.checkForItem(newPos, player);
+            maze.checkForItem(player);
         }
     }
 
@@ -99,7 +99,7 @@ public class Game {
             System.out.println("You have been defeated by the monster...");
         } else if (monster.getHealth() <= 0) {
             System.out.println("You have defeated the monster!");
-            player.addItem(monster.getLoot());
+            player.addItem(monster.getLoot(), true);
             maze.removeMonster(monster);
         }
     }
