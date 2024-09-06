@@ -1,6 +1,7 @@
 package se.lernia.lindstrom.max.game;
 
 import se.lernia.lindstrom.max.entities.Monster;
+import se.lernia.lindstrom.max.entities.Movable;
 import se.lernia.lindstrom.max.entities.Player;
 import se.lernia.lindstrom.max.entities.Position;
 
@@ -31,10 +32,15 @@ public class Game {
         }
     }
 
+
     private static void init() {
         player = createPlayer();
         Randomize.addRandomMonsters(maze, 4);
         Randomize.addRandomLoot(maze, 7);
+    }
+
+    private static void moveEntity(Movable entity, Position newPosition) {
+        entity.move(newPosition);
     }
 
     private static Player createPlayer() {
@@ -56,7 +62,7 @@ public class Game {
                 initializeBattle(monster);
             }
             if (maze.checkForMonster(newPos) == null) {
-                player.move(newPos);
+                moveEntity(player, newPos);
             }
             updateMap(oldPos, newPos);
             maze.checkForItem(player);
