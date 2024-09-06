@@ -22,10 +22,6 @@ public class Maze {
     private final ArrayList<Item> items = new ArrayList<>();
     private final ArrayList<Monster> monsters = new ArrayList<>();
 
-    public ArrayList<Item> getItems() {
-        return new ArrayList<>(items);
-    }
-
     public int[][] getMaze() {
         return maze;
     }
