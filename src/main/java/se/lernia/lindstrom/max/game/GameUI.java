@@ -53,7 +53,7 @@ public class GameUI {
 
     private static void executeAttack(Object attacker, Monster monster, int amount) {
         if (attacker instanceof Monster) {
-            int totalDamage = Math.max(0, amount - Game.player.getDefence());
+            int totalDamage = Math.max(0, amount - Game.player.getDefense());
             System.out.println("The monster attacks you and deals " +
                     totalDamage + " damage!");
             Game.player.loseHealth(totalDamage);

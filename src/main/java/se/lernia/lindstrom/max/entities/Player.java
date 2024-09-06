@@ -14,15 +14,15 @@ public class Player implements Movable {
     private final Map<ItemSlot, Item> equippedItems;
     private int health;
     private final int attack;
-    private final int defence;
+    private final int defense;
     private Position position;
 
-    public Player(String name, int health, Position position, int attack, int defence) {
+    public Player(String name, int health, Position position, int attack, int defense) {
         this.name = name;
         this.health = health;
         this.position = position;
         this.attack = attack;
-        this.defence = defence;
+        this.defense = defense;
         equippedItems = new EnumMap<>(ItemSlot.class);
     }
 
@@ -42,8 +42,8 @@ public class Player implements Movable {
         return Math.max(0, health);
     }
 
-    public int getDefence() {
-        return defence;
+    public int getDefense() {
+        return defense;
     }
 
     public ArrayList<Item> getInventory() {
@@ -113,9 +113,9 @@ public class Player implements Movable {
             System.out.println("Attack: " + attack);
         }
         if (equippedArmor != null) {
-            System.out.println("Defence: " + (defence + equippedArmor.getStrength()) + " (" + defence + "+" + equippedArmor.getStrength() + ")");
+            System.out.println("Defense: " + (defense + equippedArmor.getStrength()) + " (" + defense + "+" + equippedArmor.getStrength() + ")");
         } else {
-            System.out.println("Defence: " + defence);
+            System.out.println("Defense: " + defense);
         }
     }
 }

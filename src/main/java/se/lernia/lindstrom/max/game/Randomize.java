@@ -36,7 +36,7 @@ public class Randomize {
         int randomIndex = random.nextInt(0, validPositions.size());
         Item loot = randomLoot(validPositions.get(randomIndex));
         Position position = validPositions.get(randomIndex);
-        return Monster.of(randomName(), randomHealth(), position, randomAttack(), loot, randomDefence());
+        return Monster.of(randomName(), randomHealth(), position, randomAttack(), loot, randomDefense());
     }
 
     private static String randomName() {
@@ -73,7 +73,7 @@ public class Randomize {
         return random.nextInt(8, 20);
     }
 
-    private static int randomDefence() {
+    private static int randomDefense() {
         return random.nextInt(0, 10);
     }
 
