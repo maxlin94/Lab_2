@@ -1,21 +1,21 @@
 package se.lernia.lindstrom.max.entities;
 
 import se.lernia.lindstrom.max.items.Item;
-import se.lernia.lindstrom.max.items.ItemType;
+import se.lernia.lindstrom.max.items.ItemSlot;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Player implements Movable {
     private final String name;
     private final ArrayList<Item> inventory = new ArrayList<>();
+    private final Map<ItemSlot, Item> equippedItems;
     private int health;
     private final int attack;
     private final int defence;
-    private Item equippedWeapon;
-    private Item equippedArmor;
     private Position position;
-
 
     public Player(String name, int health, Position position, int attack, int defence) {
         this.name = name;
@@ -23,9 +23,9 @@ public class Player implements Movable {
         this.position = position;
         this.attack = attack;
         this.defence = defence;
+        equippedItems = new EnumMap<>(ItemSlot.class);
     }
 
-    @Override
     public void move(Position newPosition) {
         position = newPosition;
     }
@@ -50,52 +50,45 @@ public class Player implements Movable {
         return inventory;
     }
 
-    public Item getEquippedWeapon() {
-        return equippedWeapon;
+    public Item getEquippedItem(ItemSlot slot) {
+        return equippedItems.get(slot);
     }
 
-    public Item getEquippedArmor() {
-        return equippedArmor;
-    }
-
-    public void addItem(Item item) {
+    public void addItem(Item item, boolean droppedByMonster) {
         boolean itemAlreadyInInventory = getInventory().stream()
-                .anyMatch(existingItem -> existingItem.getItemType() == item.getItemType());
-        if (itemAlreadyInInventory && item.getItemSlot() != ItemType.ItemSlot.POTION) {
+                .anyMatch(existingItem -> existingItem.equals(item));
+        if (itemAlreadyInInventory && item.getItemSlot() != ItemSlot.POTION) {
             return;
         }
-        System.out.println("You have found a " + item.getName() + " on the ground.");
+        if (droppedByMonster) {
+            System.out.println("The monster dropped a " + item.getName());
+        } else {
+            System.out.println("You have found a " + item.getName() + " on the ground.");
+        }
         inventory.add(item);
     }
 
-    private void equipItem(Item item, ItemType.ItemSlot slot) {
-        if (slot == ItemType.ItemSlot.BODY) {
-            if (equippedArmor != item) {
-                equippedArmor = item;
-                return;
-            }
-            equippedArmor = null;
-        }
-        if (slot == ItemType.ItemSlot.HANDS) {
-            if (equippedWeapon != item) {
-                equippedWeapon = item;
-                return;
-            }
-            equippedWeapon = null;
+    private void equipItem(Item item) {
+        ItemSlot slot = item.getItemSlot();
+        if (item.equals(equippedItems.get(slot))) {
+            equippedItems.remove(slot);
+        } else {
+            equippedItems.put(item.getItemSlot(), item);
         }
     }
 
     public void useItem(Item item) {
-        if (item.getItemSlot() == ItemType.ItemSlot.POTION) {
+        if (item.getItemSlot() == ItemSlot.POTION) {
             addHealth(item.getStrength());
             inventory.remove(item);
         } else {
-            equipItem(item, item.getItemSlot());
+            equipItem(item);
         }
     }
 
     public int attack() {
         Random random = new Random();
+        Item equippedWeapon = equippedItems.get(ItemSlot.HANDS);
         int totalAttack = attack + (equippedWeapon != null ? equippedWeapon.getStrength() : 0);
         return random.nextInt((int) Math.floor(totalAttack / 1.5), (int) Math.floor(totalAttack * 2.5));
     }
@@ -112,9 +105,10 @@ public class Player implements Movable {
     public void printStats() {
         System.out.println("Name: " + name);
         System.out.println("Health: " + health);
+        Item equippedWeapon = equippedItems.get(ItemSlot.HANDS);
+        Item equippedArmor = equippedItems.get(ItemSlot.BODY);
         if (equippedWeapon != null) {
             System.out.println("Attack: " + (attack + equippedWeapon.getStrength()) + " (" + attack + "+" + equippedWeapon.getStrength() + ")");
-            System.out.println("Equipped weapon: " + equippedWeapon.getName());
         } else {
             System.out.println("Attack: " + attack);
         }
