@@ -2,7 +2,7 @@ package se.lernia.lindstrom.max.items;
 
 import se.lernia.lindstrom.max.entities.Position;
 
-public enum ItemEnum {
+public enum ItemList {
     SHIRT(new Armor(Position.of(0, 0), ItemSlot.BODY, "Shirt", 5)),
     WORN_ARMOR(new Armor(Position.of(0, 0), ItemSlot.BODY, "Worn armor", 10)),
     PLATE_ARMOR(new Armor(Position.of(0, 0), ItemSlot.BODY, "Plate armor", 15)),
@@ -16,7 +16,7 @@ public enum ItemEnum {
 
     private final Item item;
 
-    ItemEnum(Item item) {
+    ItemList(Item item) {
         this.item = item;
     }
 

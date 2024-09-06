@@ -3,7 +3,7 @@ package se.lernia.lindstrom.max.game;
 import se.lernia.lindstrom.max.entities.Monster;
 import se.lernia.lindstrom.max.entities.Position;
 import se.lernia.lindstrom.max.items.Item;
-import se.lernia.lindstrom.max.items.ItemEnum;
+import se.lernia.lindstrom.max.items.ItemList;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -78,7 +78,7 @@ public class Randomize {
     }
 
     public static Item randomLoot(Position position) {
-        ItemEnum[] types = ItemEnum.values();
+        ItemList[] types = ItemList.values();
         int randomIndex = random.nextInt(types.length);
         Item loot = types[randomIndex].getItem();
         loot.setPosition(position);
