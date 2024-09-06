@@ -37,22 +37,22 @@ public class Item {
     }
 
     public String getDescription(Player player) {
-        String info = this.getName();
+        String info = getName();
 
-        switch (this.getItemSlot()) {
+        switch (getItemSlot()) {
             case HANDS:
-                info += " Attack: " + this.getStrength();
+                info += " Attack: " + getStrength();
                 info += (this == player.getEquippedWeapon()) ? " (Equipped)" : "";
                 break;
             case BODY:
-                info += " Defence: " + this.getStrength();
+                info += " Defence: " + getStrength();
                 info += (this == player.getEquippedArmor()) ? " (Equipped)" : "";
                 break;
             case POTION:
-                info += " Health: " + this.getStrength();
+                info += " Health: " + getStrength();
                 break;
             default:
-                info += " (Unknown Slot)";
+                info += "";
         }
         return info;
     }
