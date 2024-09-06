@@ -37,7 +37,5 @@ public abstract class Item {
         return name;
     }
 
-    public String getDescription(Player player) {
-        return getName() + " Attack: " + getStrength() + (player.getEquippedItem(itemSlot) == this ? " (Equipped)" : "");
-    }
+    public abstract String getDescription(Player player);
 }
